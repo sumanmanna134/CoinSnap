@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "root@123"   # Root password
+      MYSQL_DATABASE: "offlix"          # Database name
+      MYSQL_USER: "offlix"             # Non-root user
+      MYSQL_PASSWORD: "root@123"     # Non-root user's password
+    ports:
+      - "3306:3306"                        # Expose MySQL port
+    volumes:
+      - mysql-data:/var/lib/mysql          # Persist MySQL data
+
+volumes:
+  mysql-data:
