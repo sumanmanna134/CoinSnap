@@ -1,14 +1,1 @@
-package com.offlixtrade.crypto.controller;
-
-
-import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-@RestController
-public class HomeController {
-    @GetMapping("/health")
-    public String getHello(HttpServletRequest servletRequest){
-        return "OK";
-}
-}
+package com.offlixtrade.crypto.controller;import com.offlixtrade.crypto.constant.RouteConstant;import com.offlixtrade.crypto.model.ApiGlobalResponse;import jakarta.servlet.http.HttpServletRequest;import org.springframework.http.HttpStatus;import org.springframework.http.ResponseEntity;import org.springframework.web.bind.annotation.GetMapping;import org.springframework.web.bind.annotation.RequestMapping;import org.springframework.web.bind.annotation.RestController;@RestController@RequestMapping(RouteConstant.HEALTH)public class HomeController {    @GetMapping("/check")    public String getHello() {        System.out.println("PATH: " + RouteConstant.HEALTH);        return "OK";    }    @GetMapping("/ip")    public ResponseEntity<?> getIp(HttpServletRequest servletRequest) {        String clientIp = servletRequest.getHeader("X-Forwarded-For");        if (clientIp == null || clientIp.isEmpty() || "unknown".equalsIgnoreCase(clientIp)) {            clientIp = servletRequest.getRemoteAddr();        }        return new ResponseEntity<>(new ApiGlobalResponse<>(clientIp, HttpStatus.OK), HttpStatus.OK);    }}
